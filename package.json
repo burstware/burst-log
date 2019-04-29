@@ -1,0 +1,30 @@
+{
+  "name": "@burstware/burst-log",
+  "version": "0.1.0",
+  "description": "Burst logging tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JBaczuk/burst-log.git"
+  },
+  "author": "Jordan Baczuk",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/JBaczuk/burst-log/issues"
+  },
+  "homepage": "https://github.com/JBaczuk/burst-log#readme",
+  "dependencies": {
+    "winston": "3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "5.12.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
