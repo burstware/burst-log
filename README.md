@@ -14,4 +14,4 @@ log.info("127.0.0.1 - there's no place like home")
 log.debug("127.0.0.1 - there's no place like home")
 ```
 
-![screenshot](https://raw.githubusercontent.com/jbaczuk/burst-log/master/screenshot.png)
+![screenshot](https://github.com/JBaczuk/burst-log/raw/master/screenshot.png)
