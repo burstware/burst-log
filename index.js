@@ -11,8 +11,8 @@ function getSpaces (level) {
   if (level.indexOf('notice') > -1) {
     return '  '
   }
-  if (Buffer.from(level, 'utf-8').toString('hex') === '1b5b33316d651b5b33396d1b5b33336d6d1b5b33396d1b5b33326d651b5b33396d1b5b33346d721b5b33396d1b5b33356d671b5b33396d' || // emerg rainbow
-      Buffer.from(level, 'utf-8').toString('hex') === '1b5b33316d611b5b33396d1b5b33376d6c1b5b33396d1b5b33346d651b5b33396d1b5b33316d721b5b33396d1b5b33376d741b5b33396d' || // alert usa
+  if (level.indexOf('emerg') > -1 ||
+      level.indexOf('alert') > -1 ||
       level.indexOf('error') > -1 ||
       level.indexOf('debug') > -1) {
     return '   '
@@ -23,29 +23,52 @@ function getSpaces (level) {
   }
 }
 
+const colorizer = winston.format.colorize({
+  all: true,
+  colors: {
+    emerg: 'rainbow',
+    alert: 'america',
+    crit: 'magenta',
+    error: 'red',
+    warning: 'yellow',
+    notice: 'cyan',
+    info: 'blue',
+    debug: 'gray'
+  }
+})
+
 let options = {
   levels: winston.config.syslog.levels,
   format: winston.format.combine(
     winston.format.timestamp({
       format: 'YYYY-MM-DD HH:mm:ss'
     }),
-    winston.format.colorize({
-      all: true,
-      colors: {
-        emerg: 'rainbow',
-        alert: 'america',
-        crit: 'magenta',
-        error: 'red',
-        warning: 'yellow',
-        notice: 'cyan',
-        info: 'blue',
-        debug: 'gray'
+    winston.format.printf(info => {
+      if (info.stack) {
+        return `${info.stack}`
       }
     }),
-    winston.format.printf(info => `${info.timestamp} ${info.level}:${getSpaces(info.level)}${info.message}`)
+    // colorizer,
+    winston.format.errors({ stack: true }),
+    winston.format.printf(info => {
+      const timestamp = info.timestamp
+      const level = info.level
+      const message = info.message
+      const stack = info.stack
+      const spaces = getSpaces(level)
+
+      if (stack) {
+        return timestamp + colorizer.colorize(level, level, ` ${level}:${spaces}${stack}`)
+      } else {
+        return timestamp + colorizer.colorize(level, level, ` ${level}:${spaces}${message}`)
+      }
+    })
   ),
   transports: [
-    new winston.transports.Console()
+    new winston.transports.Console({
+      level: 'debug',
+      handleExceptions: true
+    })
   ]
 }
 

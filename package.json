@@ -1,6 +1,6 @@
 {
   "name": "@burstware/burst-log",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Burst logging tool",
   "main": "index.js",
   "scripts": {
