@@ -77,4 +77,18 @@ options.level = 'debug'
 
 const log = winston.createLogger(options)
 
+// Bodge to accept multiple args
+const wrapper = (original) => {
+  return (...args) => original(args.join(' '))
+}
+
+log.emerg = wrapper(log.emerg)
+log.alert = wrapper(log.alert)
+log.crit = wrapper(log.crit)
+log.error = wrapper(log.error)
+log.warning = wrapper(log.warning)
+log.notice = wrapper(log.notice)
+log.info = wrapper(log.info)
+log.debug = wrapper(log.debug)
+
 module.exports = log
