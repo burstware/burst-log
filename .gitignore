@@ -59,3 +59,9 @@ typings/
 
 # next.js build output
 .next
+
+# editor config
+.vscode/
+
+# Mac finder
+.DS_Store

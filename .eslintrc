@@ -1,1 +1,9 @@
 extends: standard
+
+rules:
+  no-warning-comments:
+  - error
+  - terms:
+    - todo
+    - fixme
+    location: anywhere

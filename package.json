@@ -1,10 +1,12 @@
 {
   "name": "@burstware/burst-log",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Burst logging tool",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "nyc --reporter=text mocha test/**/*.spec.js --exit --reporter spec",
+    "lint": "eslint --ignore-path .gitignore .",
+    "lint:fix": "eslint --fix --ignore-path .gitignore ."
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,6 @@
     "winston": "3.2.1"
   },
   "devDependencies": {
-    "mocha": "^6.2.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "eslint": "5.12.0",
@@ -28,6 +29,8 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1"
   }
 }

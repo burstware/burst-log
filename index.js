@@ -1,10 +1,6 @@
 const winston = require('winston')
 
 function getSpaces (level) {
-  // There are control characters so equality doesn't work
-  // console.log('level', level)
-  // console.log('buffer level', Buffer.from(level, 'utf-8').toString('hex'))
-  // console.log('buffer literal', Buffer.from('info', 'utf-8').toString('hex'))
   if (level.indexOf('warning') > -1) {
     return ' '
   }
@@ -72,7 +68,7 @@ let options = {
   ]
 }
 
-// TODO: allow passing debug as an option
+// should allow passing debug as an option
 options.level = 'debug'
 
 const log = winston.createLogger(options)

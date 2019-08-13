@@ -1,4 +1,9 @@
-# burst-log
+# Burst Log [![Build Status](https://travis-ci.com/JBaczuk/burst-log.svg?token=29qnEeDFvpCBmjssZsMZ&branch=master)](https://travis-ci.com/JBaczuk/burst-log) [![Coverage](https://img.shields.io/badge/coverage-0%-red)](https://www.npmjs.org/@burstware/burst-log)
+
+[<img src="https://s3-us-west-2.amazonaws.com/burstware.com/img/burstware+horizontal.png" width="50%" />](https://burstware.com)
+
+[![NPM](https://img.shields.io/badge/npm-1.0.4-blue)](https://www.npmjs.org/@burstware/burst-log)
+
 Burst logging tool
 
 ```javascript
