@@ -62,14 +62,14 @@ let options = {
   ),
   transports: [
     new winston.transports.Console({
-      level: 'debug',
+      level: process.env.LOG_LEVEL || 'info',
       handleExceptions: true
     })
   ]
 }
 
 // should allow passing debug as an option
-options.level = 'debug'
+options.level = process.env.LOG_LEVEL || 'info'
 
 const log = winston.createLogger(options)
 
