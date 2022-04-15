@@ -18,9 +18,6 @@
     "url": "https://github.com/JBaczuk/burst-log/issues"
   },
   "homepage": "https://github.com/JBaczuk/burst-log#readme",
-  "dependencies": {
-    "winston": "3.2.1"
-  },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",

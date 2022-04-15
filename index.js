@@ -1,90 +1,82 @@
-const winston = require('winston')
+reset = "\x1b[0m"
+bright = "\x1b[1m"
+dim = "\x1b[2m"
+underscore = "\x1b[4m"
+blink = "\x1b[5m"
+reverse = "\x1b[7m"
+hidden = "\x1b[8m"
 
-function getSpaces (level) {
-  if (level.indexOf('warning') > -1) {
-    return ' '
-  }
-  if (level.indexOf('notice') > -1) {
-    return '  '
-  }
-  if (level.indexOf('emerg') > -1 ||
-      level.indexOf('alert') > -1 ||
-      level.indexOf('error') > -1 ||
-      level.indexOf('debug') > -1) {
-    return '   '
-  }
-  if (level.indexOf('info') > -1 ||
-      level.indexOf('crit') > -1) {
-    return '    '
-  }
+fgBlack = "\x1b[30m"
+fgRed = "\x1b[31m"
+fgGreen = "\x1b[32m"
+fgYellow = "\x1b[33m"
+fgBlue = "\x1b[34m"
+fgMagenta = "\x1b[35m"
+fgCyan = "\x1b[36m"
+fgWhite = "\x1b[37m"
+
+bgBlack = "\x1b[40m"
+bgRed = "\x1b[41m"
+bgGreen = "\x1b[42m"
+bgYellow = "\x1b[43m"
+bgBlue = "\x1b[44m"
+bgMagenta = "\x1b[45m"
+bgCyan = "\x1b[46m"
+bgWhite = "\x1b[47m"
+
+const log = (...args) => {
+  console.log(...args)
 }
 
-const colorizer = winston.format.colorize({
-  all: true,
-  colors: {
-    emerg: 'rainbow',
-    alert: 'america',
-    crit: 'magenta',
-    error: 'red',
-    warning: 'yellow',
-    notice: 'cyan',
-    info: 'blue',
-    debug: 'gray'
+const pretty = function (...args) {
+  const prettyArgs = []
+  for (arg of args) {
+    prettyArgs.push(JSON.stringify(arg, null,2))
   }
-})
-
-let options = {
-  levels: winston.config.syslog.levels,
-  format: winston.format.combine(
-    winston.format.timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss'
-    }),
-    winston.format.printf(info => {
-      if (info.stack) {
-        return `${info.stack}`
-      }
-    }),
-    // colorizer,
-    winston.format.errors({ stack: true }),
-    winston.format.printf(info => {
-      const timestamp = info.timestamp
-      const level = info.level
-      const message = info.message
-      const stack = info.stack
-      const spaces = getSpaces(level)
-
-      if (stack) {
-        return timestamp + colorizer.colorize(level, level, ` ${level}:${spaces}${stack}`)
-      } else {
-        return timestamp + colorizer.colorize(level, level, ` ${level}:${spaces}${message}`)
-      }
-    })
-  ),
-  transports: [
-    new winston.transports.Console({
-      level: process.env.LOG_LEVEL || 'info',
-      handleExceptions: true
-    })
-  ]
+  this(...prettyArgs)
 }
 
-// should allow passing debug as an option
-options.level = process.env.LOG_LEVEL || 'info'
-
-const log = winston.createLogger(options)
-
-// Bodge to accept multiple args
-const wrapper = (original) => {
-  return (...args) => original(args.join(' '))
+const warn = (...args) => {
+  console.log(`${fgYellow}%s`, ...args, reset)
 }
 
-log.emerg = wrapper(log.emerg)
-log.alert = wrapper(log.alert)
-log.crit = wrapper(log.crit)
-log.error = wrapper(log.error)
-log.warning = wrapper(log.warning)
-log.notice = wrapper(log.notice)
-log.info = wrapper(log.info)
-log.debug = wrapper(log.debug)
+warn.pretty = pretty
 
-module.exports = log
+
+log.pretty = pretty
+log.warn = warn
+log.warning = warn
+
+log('something')
+log([1,2,3])
+log({foo: 'bar', baz: undefined})
+log.pretty({foo: 'bar', baz: undefined})
+log.warn('something')
+log.warn.pretty({foo: 'bar'})
+
+/**
+ * Usage:
+ * 
+ * log('something')
+ * log([1,2,3])
+ * log({foo: 'bar', baz: undefined})
+ * log.pretty({foo: 'bar', baz: undefined})
+ * log.warn('something')
+ * log.warn.pretty({foo: 'bar'})
+ */
+
+/** TODO:
+ * - hide logs if not in LOG_LEVEL
+ * - finish other log types
+ *  - emerg
+    - alert
+    - crit
+    - error
+    - warning (warn)
+    - notice
+    - info (default)
+    - debug
+
+   - add timestamp
+   - move from travis to github actions
+ */
