@@ -1,12 +1,27 @@
 {
   "name": "@burstware/burst-log",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Burst logging tool",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "nyc --reporter=text mocha test/**/*.spec.js --exit --reporter spec",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "npm run test:cjs && npm run test:esm",
+    "test:cjs": "node test-cjs/test.js",
+    "test:esm": "node test-esm/test.mjs",
     "lint": "eslint --ignore-path .gitignore .",
-    "lint:fix": "eslint --fix --ignore-path .gitignore ."
+    "lint:fix": "eslint --fix --ignore-path .gitignore .",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,6 +37,13 @@
     "winston": "3.2.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.20",
+    "@types/chai-as-promised": "^7.1.8",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.17.13",
+    "@types/winston": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "eslint": "5.12.0",
@@ -31,6 +53,8 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "mocha": "^10.2.0",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3"
   }
 }

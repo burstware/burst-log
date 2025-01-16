@@ -2,7 +2,7 @@
 
 [<img src="https://s3-us-west-2.amazonaws.com/burstware.com/img/burstware+horizontal.png" width="50%" />](https://burstware.com)
 
-[![NPM](https://img.shields.io/badge/npm-1.1.0-blue)](https://www.npmjs.org/@burstware/burst-log)
+[![NPM](https://img.shields.io/badge/npm-2.0.0-blue)](https://www.npmjs.org/@burstware/burst-log)
 
 Burst logging tool
 
@@ -34,4 +34,5 @@ log.debug("127.0.0.1 - there's no place like home")
 ![screenshot](https://github.com/JBaczuk/burst-log/raw/master/screenshot.png)
 
 ## Changelog
+`v2.0.0` Updated to support ESM. CJS is still supported via .default
 `v1.1.0` Now the log level is defined by the environment variable `LOG_LEVEL` and is set to `info` by default

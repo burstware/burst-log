@@ -1,9 +1,21 @@
-extends: standard
-
-rules:
-  no-warning-comments:
-  - error
-  - terms:
-    - todo
-    - fixme
-    location: anywhere
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "standard",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-warning-comments": [
+      "error",
+      {
+        "terms": ["todo", "fixme"],
+        "location": "anywhere"
+      }
+    ]
+  }
+}

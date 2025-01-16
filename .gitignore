@@ -65,3 +65,7 @@ typings/
 
 # Mac finder
 .DS_Store
+
+# TypeScript
+dist/
+*.tsbuildinfo
